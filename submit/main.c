@@ -6,7 +6,7 @@
 /*   By: tookuyam <tookuyam@student.42tokyo.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:37:18 by tookuyam          #+#    #+#             */
-/*   Updated: 2025/06/28 23:24:23 by tookuyam         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:27:01 by tookuyam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int	main(void)
 			printf("hash %d: %d\n", i, values[i]);
 		i++;
 	}
+	hmap_destroy_hashmap(&map);
 	return (0);
 }
