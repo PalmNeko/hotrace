@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hmap_add_value.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookuyam <tookuyam@student.42tokyo.fr>     +#+  +:+       +#+        */
+/*   By: kitsuki <kitsuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 21:21:24 by tookuyam          #+#    #+#             */
-/*   Updated: 2025/06/28 23:22:53 by tookuyam         ###   ########.fr       */
+/*   Updated: 2025/06/29 22:06:01 by kitsuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_ehashmap	hmap_add_value(t_hashmap **map, t_hotstring key, t_hotstring value)
 		add_result = extend_hashmap(map, (*map)->max_size + 1);
 		if (add_result == HASHMAP_ENOMEM)
 		{
-			free_hashmap(*map);
+			free_hashmap(*map, false);
 			*map = NULL;
 			return (HASHMAP_ENOMEM);
 		}
