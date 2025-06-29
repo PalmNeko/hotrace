@@ -17,4 +17,8 @@ void	free_hashnode(t_hashnode *const node)
 {
 	if (node == NULL)
 		return ;
+	if (node->key != NULL)
+		free(node->key);
+	if (node->value != NULL)
+		free(node->value);
 }

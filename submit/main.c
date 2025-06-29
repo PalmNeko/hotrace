@@ -10,71 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashmap.h"
+#include "hotrace.h"
 #include "utils.h"
-#include <unistd.h>
-#include <errno.h>
-#include <stdio.h>
+
+static int	free_all(t_hashmap **map, char **buf)
+{
+	if (*map != NULL)
+		hmap_destroy_hashmap(map);
+	if (*buf != NULL)
+	{
+		free(*buf);
+		*buf = NULL;
+	}
+	return (0);
+}
+
+static int	handle_error(t_hashmap **map, char **buf, const char *msg)
+{
+	free_all(map, buf);
+	ft_putstr_fd(STDERR_FILENO, msg);
+	return (1);
+}
 
 int	main(void)
 {
-	t_hashmap	*map;
-	t_hashnode	*node;
+	t_hashmap		*map;
+	char			*buf;
+	t_input_status	flag;
 
-	map = hmap_new_hashmap(1);
+	buf = NULL;
+	map = hmap_new_hashmap(1001);
 	if (map == NULL)
+		return (handle_error(&map, &buf, "error in: initialize map.\n"));
+	while (true)
 	{
-		perror("hashmap new");
-		return (1);
+		flag = handle_add_value(&map, &buf);
+		if (flag == ERROR)
+			return (handle_error(&map, &buf, "error in: add key-value.\n"));
+		else if (flag == FINISH)
+			break ;
 	}
-	if (hmap_add_value(&map, "key1", "value1\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key2", "value2\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key3", "value3\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key4", "value4\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key5", "value5\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key6", "value6\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key7", "value7\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key8", "value8\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key9", "value9\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key10", "value10\n") > HASHMAP_ERROR
-		|| hmap_add_value(&map, "key11", "value11\n") > HASHMAP_ERROR)
+	while (true)
 	{
-		perror("hashmap add value");
-		return (1);
+		flag = handle_get_node(map, &buf);
+		if (flag == ERROR)
+			return (handle_error(&map, &buf, "error in: get value.\n"));
+		else if (flag == FINISH)
+			break ;
 	}
-	printf("%zu %zu\n", map->size, map->max_size);
-	node = hmap_get_node(map, "key3");
-	if (node != NULL)
-		print_hotstring(node->value);
-	else
-		perror("hashmap get node");
-
-	char a = ' ';
-	const int size = 35;
-	int values[size];
-	for (int i = 0; i < size; i++)
-		values[i] = 0;
-	printf("range: %d\n", '~' - ' ');
-	while (' ' <= a && a <= '~')
-	{
-		char c[200];
-		for (int i = 0; i < 199; i++)
-			c[i] = 'x';
-		c[68] = a;
-		c[199] = '\0';
-		size_t index = hash(c) % size;
-		values[index]++;
-		printf("%s: %zu\n", c, index);
-		a++;
-	}
-
-	int i = 0;
-	while (i < size)
-	{
-		if (values[i] > 1)
-			printf("hash %d: %d\n", i, values[i]);
-		i++;
-	}
-	hmap_destroy_hashmap(&map);
-	return (0);
+	return (free_all(&map, &buf));
 }

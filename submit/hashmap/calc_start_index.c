@@ -12,7 +12,7 @@
 
 #include "hashmap.h"
 
-size_t	calc_start_index(size_t hash_value, size_t max_size)
+size_t	calc_start_index(size_t hash_value, size_t max_size, size_t elm_size)
 {
-	return ((hash_value % max_size) * 10);
+	return ((hash_value % max_size) * elm_size);
 }
