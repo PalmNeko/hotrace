@@ -6,7 +6,7 @@
 /*   By: tookuyam <tookuyam@student.42tokyo.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 19:10:10 by tookuyam          #+#    #+#             */
-/*   Updated: 2025/06/28 23:19:03 by tookuyam         ###   ########.fr       */
+/*   Updated: 2025/06/29 23:17:23 by tookuyam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ size_t	hash(t_hotstring key)
 	size_t		hash;
 
 	str = key;
-	hash = 0;
-	while (*str != '\0')
+	hash = 14695981039346656037UL;
+	while (*str)
 	{
-		hash += (*str ^ 0x66C63);
-		str++;
+		hash ^= (unsigned char)(*str++);
+		hash *= 1099511628211UL;
 	}
 	return (hash);
 }

@@ -6,7 +6,7 @@
 /*   By: tookuyam <tookuyam@student.42tokyo.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:37:18 by tookuyam          #+#    #+#             */
-/*   Updated: 2025/06/28 23:27:01 by tookuyam         ###   ########.fr       */
+/*   Updated: 2025/06/29 23:16:21 by tookuyam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(void)
 	t_input_status	flag;
 
 	buf = NULL;
-	map = hmap_new_hashmap(1001);
+	map = hmap_new_hashmap(877);
 	if (map == NULL)
 		return (handle_error(&map, &buf, "error in: initialize map.\n"));
 	while (true)

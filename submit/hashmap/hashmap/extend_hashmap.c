@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extend_hashmap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kitsuki <kitsuki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookuyam <tookuyam@student.42tokyo.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 20:05:25 by tookuyam          #+#    #+#             */
-/*   Updated: 2025/06/29 21:24:40 by kitsuki          ###   ########.fr       */
+/*   Updated: 2025/06/29 23:16:10 by tookuyam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_ehashmap	extend_hashmap(t_hashmap **map, size_t additional_size)
 	add_result = move_hashmap(*map, new_map);
 	if (add_result >= HASHMAP_ERROR)
 	{
-		free_hashmap(new_map, false);
+		free_hashmap(new_map, true);
 		return (add_result);
 	}
 	free_hashmap(*map, true);
