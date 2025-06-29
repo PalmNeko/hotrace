@@ -18,7 +18,7 @@ void	free_hashmap(t_hashmap *map)
 	if (map == NULL)
 		return ;
 	if (map->table != NULL)
-		free_hashnode_list(map->table, map->max_size);
+		free_hashnode_list(map->table, map->max_size * map->max_elm_size);
 	free(map);
 	map = NULL;
 }

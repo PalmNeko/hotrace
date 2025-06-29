@@ -40,7 +40,8 @@ typedef enum e_hashmap_error
 }	t_ehashmap;
 
 size_t		hash(t_hotstring key);
-size_t		calc_start_index(size_t hash_value, size_t max_size);
+size_t		calc_start_index(
+				size_t hash_value, size_t max_size, size_t elm_size);
 
 /** publish */
 t_hashmap	*hmap_new_hashmap(size_t size);

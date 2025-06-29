@@ -27,7 +27,7 @@ int	add_hashnode(t_hashmap *map, t_hotstring key, t_hotstring value)
 	int			add_result;
 
 	hash_value = hash(key);
-	index = calc_start_index(hash_value, map->max_size);
+	index = calc_start_index(hash_value, map->max_size, map->max_elm_size);
 	add_result = insert_hashnode(map, index, key, value);
 	return (add_result);
 }
@@ -46,10 +46,7 @@ static int	insert_hashnode(
 	while (node != NULL)
 	{
 		if (is_equal_hotstring(node->key, key))
-		{
-			assign_hashnode(node, key, value);
 			return (HASHMAP_DUPLICATED);
-		}
 		if (is_empty_hashnode(node))
 		{
 			assign_hashnode(node, key, value);
@@ -57,7 +54,7 @@ static int	insert_hashnode(
 			return (HASHMAP_OK);
 		}
 		node = next_hashnode(map, &index, ++times);
-		if (times > 10)
+		if (times > map->max_elm_size)
 			return (HASHMAP_OVER_HOP);
 	}
 	return (HASHMAP_OVER_HOP);

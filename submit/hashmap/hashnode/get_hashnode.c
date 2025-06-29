@@ -20,7 +20,7 @@ t_hashnode	*get_hashnode(t_hashmap *map, t_hotstring key)
 
 	if (map == NULL || key == NULL)
 		return (NULL);
-	index = calc_start_index(hash(key), map->max_size);
+	index = calc_start_index(hash(key), map->max_size, map->max_elm_size);
 	node = &map->table[index];
 	times = 0;
 	while (node != NULL)

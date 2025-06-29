@@ -47,31 +47,43 @@ static char	*get_strline(char **buffer, ssize_t size)
 	return (ret);
 }
 
+static ssize_t	handle_read_stdin(char *stack)
+{
+	static ssize_t	closed_status = 1;
+	ssize_t			size;
+
+	if (closed_status <= 0)
+		return (closed_status);
+	size = read(STDIN_FILENO, stack, READ_BUF);
+	if (size <= 0)
+		closed_status = size;
+	return (size);
+}
+
 char	*readline_stdin(char **buffer)
 {
-	static char	stack[READ_BUF + 1];
-	ssize_t		size;
-	char		*tmp;
+	char	stack[READ_BUF + 1];
+	ssize_t	size;
+	char	*tmp;
 
 	while (true)
 	{
 		size = search_newline(*buffer);
 		if (size >= 0)
 			return (get_strline(buffer, size));
-		size = read(STDIN_FILENO, stack, READ_BUF);
+		size = handle_read_stdin(stack);
 		if (size < 0)
 			return (NULL);
-		else if (size == 0)
-		{
-			tmp = *buffer;
-			*buffer = NULL;
-			return (tmp);
-		}
 		stack[size] = '\0';
 		tmp = ft_strjoin(*buffer, stack);
 		if (tmp == NULL)
 			return (NULL);
-		free(*buffer);
-		*buffer = tmp;
+		if (*buffer != NULL)
+			free(*buffer);
+		*buffer = NULL;
+		if (size == 0)
+			return (tmp);
+		else
+			*buffer = tmp;
 	}
 }

@@ -15,7 +15,7 @@
 
 # include <stdbool.h>
 
-typedef const char	*t_hotstring;
+typedef char	*t_hotstring;
 
 bool	is_equal_hotstring(t_hotstring str1, t_hotstring str2);
 void	print_hotstring(t_hotstring str);

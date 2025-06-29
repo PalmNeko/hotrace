@@ -21,7 +21,7 @@ int	init_hashmap(t_hashmap *map, size_t size)
 	map->table = NULL;
 	map->size = 0;
 	map->max_size = size;
-	map->max_elm_size = 10;
+	map->max_elm_size = 5;
 	if (size <= 0)
 		return (-1);
 	map->table = create_hashnode_list(size * map->max_elm_size);
