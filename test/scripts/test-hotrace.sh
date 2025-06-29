@@ -1,6 +1,6 @@
 
 
-HOTRACE="pseudo-hotrace.sh"
+HOTRACE="../../submit/hotrace"
 REF_EXEC="pseudo-hotrace.sh"
 INPUT_DIR="../input-files"
 OUTDIR="../output"
@@ -145,8 +145,8 @@ function validate_result() {
 function leak_check() {
 	local input_file="$1"
 
-	valgrind -q --leak-check=full "$HOTRACE" < "$input_file" > "$OUTDIR/$(basename "$input_file")"
-	if [[ $? -ne 0 ]]; then
+	valgrind -q --leak-check=full --error-exitcode=223 "$HOTRACE" < "$input_file" > "$OUTDIR/$(basename "$input_file")"
+	if [[ $? -eq 223 ]]; then
 		echo "Error: Hotrace execution failed for input file '$input_file'."
 		exit 1
 	fi
