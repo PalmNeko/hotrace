@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookuyam <tookuyam@student.42tokyo.fr>     +#+  +:+       +#+        */
+/*   By: kitsuki <kitsuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:46:19 by tookuyam          #+#    #+#             */
-/*   Updated: 2025/06/28 22:40:03 by tookuyam         ###   ########.fr       */
+/*   Updated: 2025/06/29 21:48:26 by kitsuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ t_hashnode	*hmap_get_node(t_hashmap *map, t_hotstring key);
 
 /** hashmap */
 int			get_from_hashmap(t_hashmap *map, t_hotstring key);
-void		free_hashmap(t_hashmap *map);
+void		free_hashmap(t_hashmap *map, bool copyed);
 t_ehashmap	extend_hashmap(t_hashmap **map, size_t additional_size);
 t_hashmap	*create_hashmap(size_t size);
 int			init_hashmap(t_hashmap	*map, size_t size);
 
 /** hashnode list */
 t_hashnode	*create_hashnode_list(size_t size);
-void		free_hashnode_list(t_hashnode *node_list, size_t size);
+void		free_hashnode_list(t_hashnode *node_list, size_t size, bool copyed);
 
 /** hashnode */
 void		free_hashnode(t_hashnode *const node);
